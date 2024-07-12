@@ -18,7 +18,8 @@ public:
 // so thet we can access the first node and traverse it.
 
 void insertAtTail(node* &head, int val)
-{
+{   // if head is null it meas there is no node so that initially created node will be the first
+// node and head will point to it. also it will return and rest of the code will never be exicutated
     node *n = new node(val);
     if (head == NULL)
     {
@@ -41,10 +42,16 @@ node* reversePtr(node* &head){
 
     while (curr != NULL)
     {
+        // We points thrue curr->link to next element
+        //it stores through curr->link address of next
         next = curr->link;
+        //this line changing the address of curr's link address now it contain the address of prev
+        // curr->link == next
         curr->link  = prev;
 
+        // now we are moving prev to curr and setting it as new prev for next itration
         prev = curr;
+        // now wer are moving current to next and setting it as new prev for next itration
         curr = next;
 
     }
