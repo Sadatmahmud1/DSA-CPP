@@ -60,18 +60,62 @@ void display(node *head)
     }
     cout << endl;
 }
+
+void deleteAtHead(node *&head)
+{
+
+    node *todelete = head;
+
+    head = head->link;
+    head->prev = NULL;
+    delete todelete;
+}
+void deleteNode(node *&head, int pos)
+{
+
+    if (pos == 1)
+    {
+        deleteAtHead(head);
+        return;
+    }
+
+    node *temp = head;
+
+    int count = 1;
+
+    while (temp != NULL && count != pos)
+    {
+        temp = temp->link;
+        count++;
+    } 
+        if (temp == NULL)
+    {
+        return; // Position is out of range
+    }
+
+    temp->prev->link = temp->link;
+
+    if (temp->link != NULL)
+    {
+        temp->link->prev = temp->prev;
+    }
+
+    delete temp;
+}
 int main()
 {
-      node *head = NULL;
-        insertAtTail(head, 1);
-        insertAtTail(head, 2);
-        insertAtTail(head, 3);
-        insertAtTail(head, 4);
-        insertAtTail(head, 5);
-        insertAtTail(head, 6);
-        display(head);
-        insertAtHead(head,5);
-        display(head);
+    node *head = NULL;
+    insertAtTail(head, 1);
+    insertAtTail(head, 2);
+    insertAtTail(head, 3);
+    insertAtTail(head, 4);
+    insertAtTail(head, 5);
+    insertAtTail(head, 6);
+    display(head);
+    insertAtHead(head, 5);
+    display(head);
+    deleteNode(head,4);
+   display(head);
 
     return 0;
 }
