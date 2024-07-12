@@ -5,11 +5,11 @@ class node
 {
 public:
     int data;
-    node *next;
+    node *link;
     node(int data)
     {
         this->data = data;
-        next = NULL;
+        link = NULL;
     }
 };
 
@@ -26,25 +26,25 @@ void insertAtTail(node* &head, int val)
         return;
     }
     node *temp = head;
-    while (temp->next != NULL)
+    while (temp->link != NULL)
     {
-        temp = temp->next;
+        temp = temp->link;
     }
 
-    temp->next = n;
+    temp->link = n;
 }
 
 node* reverseRecursive(node* &head){
 
-    if (head == NULL || head-> next == NULL)
+    if (head == NULL || head-> link == NULL)
     {
         return head;
     }
     
     
-    node* newHead = reverseRecursive(head->next);
-    head->next->next = head;
-    head->next = NULL;
+    node* newHead = reverseRecursive(head->link);
+    head->link->link = head;
+    head->link = NULL;
 
     return newHead;
 
@@ -56,7 +56,7 @@ void display(node *head)
     while (temp != NULL)
     {
         cout << temp->data << " ";
-        temp = temp->next;
+        temp = temp->link;
     }
     cout << endl;
 }

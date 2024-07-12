@@ -5,11 +5,11 @@ class node
 {
 public:
     int data;
-    node *next;
+    node *link;
     node(int data)
     {
         this->data = data;
-        next = NULL;
+        link = NULL;
     }
 };
 
@@ -26,12 +26,12 @@ void insertAtTail(node* &head, int val)
         return;
     }
     node *temp = head;
-    while (temp->next != NULL)
+    while (temp->link != NULL)
     {
-        temp = temp->next;
+        temp = temp->link;
     }
 
-    temp->next = n;
+    temp->link = n;
 }
 
 void display(node *head)
@@ -40,7 +40,7 @@ void display(node *head)
     while (temp != NULL)
     {
         cout << temp->data << " ";
-        temp = temp->next;
+        temp = temp->link;
     }
     cout << endl;
 }

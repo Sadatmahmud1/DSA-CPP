@@ -5,11 +5,11 @@ class node
 {
 public:
     int data;
-    node *next;
+    node *link;
     node(int data)
     {
         this->data = data;
-        next = NULL;
+        link = NULL;
     }
 };
 
@@ -26,12 +26,12 @@ void insertAtTail(node* &head, int val)
         return;
     }
     node *temp = head;
-    while (temp->next != NULL)
+    while (temp->link != NULL)
     {
-        temp = temp->next;
+        temp = temp->link;
     }
 
-    temp->next = n;
+    temp->link = n;
 }
 
 void display(node *head)
@@ -40,14 +40,14 @@ void display(node *head)
     while (temp != NULL)
     {
         cout << temp->data << " ";
-        temp = temp->next;
+        temp = temp->link;
     }
     cout << endl;
 }
 
 void deleteAThead(node* &head){
     node* todelete = head;
-    head = head->next;
+    head = head->link;
 
     delete todelete;
 
@@ -60,21 +60,21 @@ void deletation(node* &head, int val){
         return;
     }
 
-    if (head->next== NULL)
+    if (head->link== NULL)
     {
           deleteAThead(head);
     }
     
     node* temp = head;
-    while (temp->next->data!=val)
+    while (temp->link->data!=val)
     {
-        temp = temp->next;
+        temp = temp->link;
 
     }
 
-    node* todelete = temp->next;
+    node* todelete = temp->link;
 
-    temp->next = temp->next->next;
+    temp->link = temp->link->link;
     
     delete todelete;
 }

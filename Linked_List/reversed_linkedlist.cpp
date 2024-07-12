@@ -5,11 +5,11 @@ class node
 {
 public:
     int data;
-    node *next;
+    node *link;
     node(int data)
     {
         this->data = data;
-        next = NULL;
+        link = NULL;
     }
 };
 
@@ -26,12 +26,12 @@ void insertAtTail(node* &head, int val)
         return;
     }
     node *temp = head;
-    while (temp->next != NULL)
+    while (temp->link != NULL)
     {
-        temp = temp->next;
+        temp = temp->link;
     }
 
-    temp->next = n;
+    temp->link = n;
 }
 
 node* reversePtr(node* &head){
@@ -41,13 +41,11 @@ node* reversePtr(node* &head){
 
     while (curr != NULL)
     {
-        next = curr->next;
-        curr->next  = prev;
+        next = curr->link;
+        curr->link  = prev;
 
         prev = curr;
         curr = next;
-
-
 
     }
       head = prev;  // Update the head to the new head
@@ -61,7 +59,7 @@ void display(node *head)
     while (temp != NULL)
     {
         cout << temp->data << " ";
-        temp = temp->next;
+        temp = temp->link;
     }
     cout << endl;
 }
