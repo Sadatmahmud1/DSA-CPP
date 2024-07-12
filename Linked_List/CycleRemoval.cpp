@@ -35,36 +35,59 @@ void insertAtTail(node *&head, int val)
     temp->link = n;
 }
 
-node *reverseKnode(node *&head, int k)
-{
-    node *prev = NULL;
-    node *curr = head;
-    node *next;
-    int count = 0;
-    // this loop runs k time instade of reversing full linked list
-    while (curr != NULL && count < k)
-    {
-        // We points thrue curr->link to next element
-        // it stores through curr->link address of next
-        next = curr->link;
-        // this line changing the address of curr's link address now it contain the address of prev
-        //  curr->link == next
-        curr->link = prev;
+void makeCycle(node* &head, int pos){
+    node* temp = head;
+    node* startNode = nullptr;
 
-        // now we are moving prev to curr and setting it as new prev for next itration
-        prev = curr;
-        // now wer are moving current to next and setting it as new prev for next itration
-        curr = next;
-        count++;
+    int count = 1;
+    while(temp->link != NULL){
+        if(count == pos){
+            startNode = temp;
+            }
+            
+            temp = temp->link;
+            count++;
+    }
+    temp->link = startNode; // Create the cycle by linking the last node to the startNode
+}
+
+bool detectCycle(node* &head){
+    node* slow = head;
+    node* fast = head;
+
+    while (fast!= NULL && fast->link != NULL)
+    {
+        slow = slow->link;
+        fast = fast->link->link;
+        if (fast == slow)
+        {
+                return true;
+        }
+        
+    }
+    return false;
+}
+
+void removeCycle(node* &head){
+    node* slow = head;
+    node* fast = head;
+
+    do
+    {
+        slow = slow->link;
+        fast= fast->link->link;
+    } while (slow!= fast);
+    fast = head;
+
+    while (slow->link!=fast->link)
+    {
+        slow = slow->link;
+        fast = fast->link;
     }
 
-    if (next != NULL)
-    {
-        //this line is conecting first reversed pairs to second pairs head
-        // through previous heads head->link and putting the address of next
-        head->link = reverseKnode(next, k);
-    }
-    return prev;
+    slow->link = NULL;
+    
+    cout<<"Cycle Removed!"<<endl;
 }
 
 void display(node *head)
@@ -87,11 +110,18 @@ int main()
     insertAtTail(head, 4);
     insertAtTail(head, 5);
     insertAtTail(head, 6);
+    makeCycle(head, 3);
+   bool isit = detectCycle(head);
+
+    if (isit == true)
+    {
+        cout<<"cycle detected"<<endl;
+    }
+    
+    removeCycle(head);
+
     display(head);
 
-    node *newHead = reverseKnode(head, 2);
-
-    display(newHead);
 
     return 0;
 }
